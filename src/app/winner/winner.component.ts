@@ -1,4 +1,5 @@
 import {Component, Input, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
+
 import { Wins } from '../models/wins';
 import { Player } from '../models/player';
 
@@ -58,6 +59,7 @@ export class WinnerComponent implements OnInit,OnChanges {
     }
   }
 
+  // get values each user have selected
   getValues(){
     if ( this.Player2 == Players.Computer){
 
@@ -76,6 +78,7 @@ export class WinnerComponent implements OnInit,OnChanges {
 
   }
 
+  // set the points to each user
   setPoints(firstSelectionValue , secondSelectionValue){
 
     if (firstSelectionValue == secondSelectionValue) {

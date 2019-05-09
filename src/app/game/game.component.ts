@@ -29,7 +29,7 @@ export class GameComponent implements OnInit {
   Scissors: "Scissors"
 };
 
-  public winnerMessage:Wins;
+  public winnerMessage: Wins;
   public Player1: any;
   public Player2: any;
   public playerTocheck: boolean;
@@ -38,32 +38,33 @@ export class GameComponent implements OnInit {
   public stopGame: boolean;
   public computerNumber: number;
   public rounds: number;
-  public firstSelected : Player;
-  public secondSelected : Player;
+  public firstSelected: Player;
+  public secondSelected: Player;
   public firstSelectionArray = [];
   public secondSelectionArray = [];
 
   constructor(
-    private route : ActivatedRoute,
-    private router : Router
+    private route: ActivatedRoute,
+    private router: Router
   ) {
-
   }
 
   ngOnInit() {
     this.Player1 = Players.Player;
+    // get the second player which is set by router
     this.route.data.subscribe( (data) => {
       this.Player2 = data.player;
     });
     this.winnerMessage = new Wins();
-    this.stopGame= false;
+    this.stopGame = false;
     this.playerTocheck = true;
     this.firstSelection = false;
     this.secondSelection = false;
     this.rounds = 0;
   }
 
-  OnCheck(check){
+  //  user select one of the options "Rock , Paper ... "
+  OnCheck(check) {
     if (this.rounds < 5) {
 
       this.firstSelected = new Player();
@@ -84,7 +85,7 @@ export class GameComponent implements OnInit {
         }
       }
 
-      this.playersArrays();
+      this.setPlayersArrays();
 
       if (this.firstSelection && this.secondSelection) {
         this.rounds++;
@@ -92,17 +93,19 @@ export class GameComponent implements OnInit {
         this.secondSelection = false;
       }
 
-      if (this.rounds == 5 ){
-        this.stopGame= true;
+      if (this.rounds == 5 ) {
+        this.stopGame = true;
       }
     }
   }
 
+  // user wont to play aganin
   OnReplay(){
     this.router.navigate(["main"]);
   }
 
-  getFirstSelection(check){
+  // return first user selection
+  getFirstSelection(check) {
     this.firstSelected.Player = Players.Player;
     this.firstSelected.Options = check;
     this.playerTocheck = !this.playerTocheck;
@@ -110,7 +113,8 @@ export class GameComponent implements OnInit {
     return this.firstSelected;
   }
 
-  getSecondSelection(check){
+  // return second user selection
+  getSecondSelection(check) {
     this.secondSelected.Player = Players.Player2;
     this.secondSelected.Options = check;
     this.playerTocheck = !this.playerTocheck;
@@ -118,14 +122,15 @@ export class GameComponent implements OnInit {
     return this.secondSelected;
   }
 
+  // return random selection
   getRandom(){
     this.computerNumber = Math.floor((Math.random() * 3) + 1);
     this.secondSelected.Player = Players.Computer;
-    if (this.computerNumber == 1){
+    if (this.computerNumber == 1) {
       this.secondSelected.Options  = Options.Rock;
-    } else if (this.computerNumber == 2){
+    } else if (this.computerNumber == 2) {
       this.secondSelected.Options  = Options.Paper;
-    } else if (this.computerNumber == 3){
+    } else if (this.computerNumber == 3) {
       this.secondSelected.Options  = Options.Scissors;
     }
     this.playerTocheck = !this.playerTocheck;
@@ -133,17 +138,18 @@ export class GameComponent implements OnInit {
     return this.secondSelected;
   };
 
-  playersArrays(){
-    if (this.firstSelected.Options){
+  // set the selection to each array of each user
+  setPlayersArrays(){
+    if (this.firstSelected.Options) {
       this.firstSelectionArray.push(this.firstSelected.Options);
     }
-    if (this.secondSelected.Options){
+    if (this.secondSelected.Options) {
       this.secondSelectionArray.push(this.secondSelected.Options);
     }
-
   }
 
-  receiveWinner($event){
+  // return the winner as output of winnerComponent
+  receiveWinner($event) {
     this.winnerMessage = $event;
   }
 

@@ -8,13 +8,13 @@ const routes: Routes = [
     path: "main" , component: MainComponent
   },
   {
-    path:"playWithComputer" ,component: GameComponent , data:{ player: "Computer" }
+    path: "playWithComputer", component: GameComponent , data: { player: "Computer" }
   },
   {
-    path:"playWithFriend", component: GameComponent , data : { player: "Player2" }
+    path: "playWithFriend", component: GameComponent , data : { player: "Player2" }
   },
   {
-    path:"**", redirectTo:"main"
+    path: "**", redirectTo: "main"
   }
   ];
 
