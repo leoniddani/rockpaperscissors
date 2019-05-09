@@ -1,0 +1,72 @@
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">Play Game</h1>
+  <p class="lead"> Rock Paper Scissors </p>
+</div>
+<div class="container">
+  <div *ngIf="stopGame"  class="alert alert-primary text-center"  role="alert">
+    <h3>Result: {{winnerMessage}}</h3>
+    <div class="row">
+      <div class="col-6">
+        {{Player1}}
+      </div>
+      <div class="col-6">
+        {{Player2}}
+      </div>
+    </div>
+    <hr>
+    <div class="row" *ngFor="let firstSelection of firstSelectionArray ; let i = index">
+      <div class="col-6">
+        {{firstSelection}}
+      </div>
+      <div class="col-6">
+        {{secondSelectionArray[i]}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-1 offset-5">
+        <button type="button" (click)="OnReplay()" class="btn btn-block btn-outline-primary"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="row">
+    <div class="col-12">
+      <h2> Rounds:{{rounds}}</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <h4> First Player: {{ Player1 }} <b *ngIf="playerTocheck">*</b></h4>
+    </div>
+    <div class="col-6">
+      <h4> Second Player: {{ Player2 }} <b *ngIf="!playerTocheck">*</b></h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <button type="button" [disabled]="stopGame" (click)="OnCheck(CheckOptions.Rock)" class="btn btn-lg btn-block btn-outline-primary">
+        <i class="fa fa-hand-rock-o"></i>
+        Rock</button>
+    </div>
+    <div class="col-4">
+      <button type="button" [disabled]="stopGame" (click)="OnCheck(CheckOptions.Paper)" class="btn btn-lg btn-block btn-outline-primary">
+        <i class="fa fa-hand-paper-o"></i>
+        Paper</button>
+    </div>
+    <div class="col-4">
+      <button type="button" [disabled]="stopGame" (click)="OnCheck(CheckOptions.Scissors)" class="btn btn-lg btn-block btn-outline-primary">
+        <i class="fa fa-hand-scissors-o"></i>
+        Scissors</button>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-12">
+      <app-winner (winnerMessage)="receiveWinner($event)" [firstSelected]="firstSelected" [secondSelected]="secondSelected" [Player2]="Player2" [playerTocheck] ="playerTocheck"></app-winner>
+    </div>
+  </div>
+
+</div>
